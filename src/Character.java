@@ -8,6 +8,15 @@ public class Character {
     private Stat wIs;
     private Stat cHa;
     private Wealth wealth;
+    private int pb;
+    private int lvl;
+    private String cls;
+    private String subClass;
+    private int maxHp;
+    private int hp;
+    private int hitDice;
+    private int hitDie;
+    private String race;
     
     public Character() {
         sTr = new Stat();
@@ -17,15 +26,19 @@ public class Character {
         wIs = new Stat();
         cHa = new Stat();
         wealth = new Wealth();
+        pb = 2;
+        lvl = 1;
+        hitDie = lvl;
     }
-    public Character(boolean random) {
-        sTr = new Stat();
-        dEx = new Stat();
-        cOn = new Stat();
-        iNt = new Stat();
-        wIs = new Stat();
-        cHa = new Stat();
+    public Character(String clas, int hitDice) {
+        sTr = randStat();
+        dEx = randStat();
+        cOn = randStat();
+        iNt = randStat();
+        wIs = randStat();
+        cHa = randStat();
         wealth = new Wealth();
+        cls = clas;
     }
     public Character(int str, int dex, int con, int intel, int wis, int cha) {
         sTr = new Stat(str);
@@ -37,8 +50,11 @@ public class Character {
         wealth = new Wealth();
     }
     
-    private static Stat randStat() {
-        ArrayList<int> rolls = new ArrayList <int>();
+    public int getWealth() {return wealth.getBalance();}
+    public int getWealth(char type) {return wealth.getBalance(type);}
+    
+    public static Stat randStat() {
+        ArrayList<Integer> rolls = new ArrayList <>();
         for(int i = 0; i < 4; i++) {
             rolls.add(Die.six(0));
         }
@@ -48,7 +64,7 @@ public class Character {
                 small = i;
             }
         }
-        rolls.remove(small);
+        rolls.remove((Integer) small);
         int total = 0;
         for(int i : rolls) {total += i;}
         return new Stat(total);

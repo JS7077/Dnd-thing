@@ -17,4 +17,6 @@ public class Stat {
         mod = (int) ((num - 10) / 2);
     }
     public int getMod() {return mod;}
+    
+    public String toString() {return num + ", mod " + mod;}
 }
