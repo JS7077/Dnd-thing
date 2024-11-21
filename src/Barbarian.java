@@ -1,5 +1,5 @@
 public class Barbarian extends Character{
-    public Barbarian() {
-        super("barbarian", 12);
+    public Barbarian(String race) {
+        super("barbarian", 12, race);
     }
 }

@@ -1,52 +1,22 @@
 import java.util.ArrayList;
 
-public class Character {
-    private Stat sTr;
-    private Stat dEx;
-    private Stat cOn;
-    private Stat iNt;
-    private Stat wIs;
-    private Stat cHa;
+public class Character extends Creature{
     private Wealth wealth;
-    private int pb;
     private int lvl;
     private String cls;
     private String subClass;
-    private int maxHp;
-    private int hp;
-    private int hitDice;
     private int hitDie;
     private String race;
     
-    public Character() {
-        sTr = new Stat();
-        dEx = new Stat();
-        cOn = new Stat();
-        iNt = new Stat();
-        wIs = new Stat();
-        cHa = new Stat();
+    public Character(String clas, int hitDice, String race) {
+        super(new Stat(), new Stat(), new Stat(), new Stat(), new Stat(), new Stat(), 1);
         wealth = new Wealth();
-        pb = 2;
-        lvl = 1;
+        lvl = getCr();
         hitDie = lvl;
-    }
-    public Character(String clas, int hitDice) {
-        sTr = randStat();
-        dEx = randStat();
-        cOn = randStat();
-        iNt = randStat();
-        wIs = randStat();
-        cHa = randStat();
-        wealth = new Wealth();
         cls = clas;
+        this.race = race;
     }
     public Character(int str, int dex, int con, int intel, int wis, int cha) {
-        sTr = new Stat(str);
-        dEx = new Stat(dex);
-        cOn = new Stat(con);
-        iNt = new Stat(intel);
-        wIs = new Stat(wis);
-        cHa = new Stat(cha);
         wealth = new Wealth();
     }
     
