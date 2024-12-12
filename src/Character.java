@@ -8,6 +8,9 @@ public class Character extends Creature{
     private int hitDie;
     private String race;
     
+    public Character() {
+        wealth = new Wealth();
+    }
     public Character(String clas, int hitDice, String race) {
         super(new Stat(), new Stat(), new Stat(), new Stat(), new Stat(), new Stat(), 1);
         wealth = new Wealth();

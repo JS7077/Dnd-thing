@@ -11,6 +11,9 @@ public class Creature {
     private int hp;
     private int hitDice;
     
+    public Creature() {
+    
+    }
     public Creature(Stat str, Stat dex, Stat con, Stat intel, Stat wis, Stat cha, int challengeRating) {
         sTr = str;
         dEx = dex;
