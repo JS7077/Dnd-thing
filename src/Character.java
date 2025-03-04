@@ -11,8 +11,12 @@ public class Character extends Creature{
     public Character() {
         wealth = new Wealth();
     }
-    public Character(String clas, int hitDice, String race) {
-        super(new Stat(), new Stat(), new Stat(), new Stat(), new Stat(), new Stat(), 1);
+    public Character(Stat str, Stat dex, Stat con, Stat intel, Stat wis, Stat cha,
+                     int challengeRating, int hitPointMax, int spd, int swim, int flight, int burrow,
+                     String size, String type, String align, int armorClass, int passivePerception,
+                     String clas, int hitDice, String race) {
+        super(str, dex, con, intel, wis, cha, challengeRating, hitPointMax, spd, swim, flight, burrow,
+                size, type, align, armorClass, passivePerception);
         wealth = new Wealth();
         lvl = getCr();
         hitDie = lvl;
@@ -27,20 +31,7 @@ public class Character extends Creature{
     public int getWealth(char type) {return wealth.getBalance(type);}
     
     public static Stat randStat() {
-        ArrayList<Integer> rolls = new ArrayList <>();
-        for(int i = 0; i < 4; i++) {
-            rolls.add(Die.six(0));
-        }
-        int small = 100;
-        for(int i : rolls) {
-            if(i < small) {
-                small = i;
-            }
-        }
-        rolls.remove((Integer) small);
-        int total = 0;
-        for(int i : rolls) {total += i;}
-        return new Stat(total);
+        return new Stat();
     }
     public void addMoney(int amount, char type) {wealth.add(amount, type);}
 }
