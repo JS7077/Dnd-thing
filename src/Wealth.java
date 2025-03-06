@@ -13,6 +13,9 @@ public class Wealth {
         int d = exchange(type);
         return balance / d;
     }
+    public void add(int amount) {
+        add(amount, 'g');
+    }
     public void add(int amount, char type) {
         int x = exchange(type);
         balance += amount * x;

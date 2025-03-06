@@ -1,35 +1,26 @@
 public class Creature {
-    protected Stat sTr, dEx, cOn, iNt, wIs, cHa;
-    private int cr;
+    protected Stat[] stats;
+    private final int cr;
     protected int pb;
-    protected int maxHp;
-    protected int hp;
-    protected int hitDie;
-    private int speed, swimSpeed, flySpeed, digSpeed;
-    private String size;
-    private String type;
-    private String alignment;
-    private int AC;
-    private int passiveWis;
+    protected int maxHp, hp, hitDie;
+    protected int speed, swimSpeed, flySpeed, digSpeed;
+    protected int size;
+    public static final int TINY = 4, SMALL = 6, MED = 8, LARGE = 10, HUGE = 12, GARGANTUAN = 20;
+    protected String type;
+    protected String alignment;
+    protected int AC;
+    protected int passiveWis;
     
-    public Creature() {
-    
-    }
-    public Creature(Stat str, Stat dex, Stat con, Stat intel, Stat wis, Stat cha,
-                    int challengeRating, int hitPointMax, int spd, int swim, int flight, int burrow,
-                    String size, String type, String align, int armorClass, int passivePerception,
-                    int hitDie, int pb) {
-        sTr = str;
-        dEx = dex;
-        cOn = con;
-        iNt = intel;
-        wIs = wis;
-        cHa = cha;
+    public Creature(Stat[] stats, int challengeRating, int hitPointMax,
+                    int spd, int swim, int flight, int burrow,
+                    int size, String type, String align, int armorClass,
+                    int passivePerception, int hitDieCount, int pb) {
+        this.stats = stats;
         cr = challengeRating;
-        pb = (int) ((challengeRating - 1) / 4 + 2);
+        this.pb = pb;
         maxHp = hitPointMax;
         hp = maxHp;
-        this.hitDie = hitDie;
+        hitDie = hitDieCount;
         speed = spd;
         swimSpeed = swim;
         flySpeed = flight;
@@ -40,23 +31,29 @@ public class Creature {
         AC = armorClass;
         passiveWis = passivePerception;
     }
-    public Creature(Stat str, Stat dex, Stat con, Stat intel, Stat wis, Stat cha,
-                    int challengeRating, int hitPointMax, int spd, int swim, int flight, int burrow,
-                    String size, String type, String align, int armorClass, int passivePerception) {
-        this(str, dex, con, intel, wis, cha, challengeRating, hitPointMax, spd, swim, flight, burrow,
-                size, type, align, armorClass, passivePerception, (int) ((challengeRating - 1) / 4 + 2),
-                sizeHp(size));
+    public Creature(Stat[] stats, int challengeRating,
+                    int spd, int swim, int flight, int burrow,
+                    int size, String type, String align, int armorClass) {
+        this(stats, challengeRating, calculateMaxHp(challengeRating, size, stats[Stat.CON]), spd, swim, flight, burrow,
+                size, type, align, armorClass, 10 + stats[Stat.WIS].getMod(),
+                challengeRating, (challengeRating - 1) / 4 + 2);
+    }
+    public Creature(Stat[] stats, int challengeRating, int spd, int size,
+                    String type, String align, int armorClass) {
+        this(stats, challengeRating, spd, 0, 0, 0,
+                size, type, align, armorClass);
+    }
+    public Creature() { //makes a commoner
+        this(new Stat[6], 0, 30, MED, "humanoid", "N", 10);
     }
     
     public int getCr() {return cr;}
     
-    public static int sizeHp(String size) {
-        if(size.equals("tiny")) {return 4;}
-        else if(size.equals("small")) {return 6;}
-        else if(size.equals("medium")) {return 8;}
-        else if(size.equals("large")) {return 10;}
-        else if(size.equals("huge")) {return 12;}
-        else if(size.equals("gargantuan")) {return 20;}
-        else {return 0;}
+    public static int calculateMaxHp(int lvl, int hitDiceSize, Stat con) {
+        int out = con.getMod() * lvl + hitDiceSize;
+        for(int i = 0; i < lvl - 1; i++) {
+            out += Die.roll(hitDiceSize);
+        }
+        return out;
     }
 }
