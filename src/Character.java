@@ -1,8 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Character extends Creature{
-    private Wealth wealth;
-    protected int lvl;
-    protected String cls, subClass;
-    private final String race;
+    private final Wealth wealth;
+    private int lvl;
+    private String subClass;
+    private final String race, cls;
+    private final List<Item> inventory = new ArrayList<>();
     
     public Character(Stat[] stats, int level, int spd, int size, String type,
                      String align, int armorClass, String clas, int hitDice, String race) {

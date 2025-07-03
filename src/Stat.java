@@ -23,8 +23,8 @@ public class Stat {
     public int getMod() {return mod;}
     
     public String toString() {return num + ", mod " + mod;}
-    
-    public static Stat[] randPrioStats(int first) { //makes largest at index of @param first
+    /**makes largest at index of @param first**/
+    public static Stat[] randPrioStats(int first) {
         Stat[] stats = new Stat[6];
         int biggest = 0;
         for(int i = 0; i < stats.length; i++) {
@@ -40,7 +40,7 @@ public class Stat {
     public static int randNumStat() {
         int[] rolls = new int[4];
         for(int i = 0; i < 4; i++) {
-            rolls[i] = Die.six(0);
+            rolls[i] = Die.d6(0);
         }
         int small = 7;
         for(int r : rolls) {
